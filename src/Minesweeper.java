@@ -38,8 +38,8 @@ public class Minesweeper implements ActionListener
 	
 	boolean flagging;
 	int count=0;
-	int lastXchecked=10;
-	int lastYchecked=10;
+	int lastXchecked;
+	int lastYchecked;
 	
 	int position;
 	int customBombs, customSize=0;
@@ -47,13 +47,13 @@ public class Minesweeper implements ActionListener
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public Minesweeper(int level, int mines)
 	{		
-		//One of the hardest programs I made till date
-		//Especially the recursion of revealing all zero's adjacent
-		
 		position=level;
 		
 		size=level;
 		bombs=mines;
+		
+		lastXchecked=size+1;
+		lastYchecked=size+1;
 		
 		flagged=new boolean[size][size]; //To know which places are flagged
 		random=new Random();
@@ -616,16 +616,7 @@ public class Minesweeper implements ActionListener
 				}
 			}
 			
-			//For some reason sometimes empty button was being considered 0 so this is to prevent malfunctioning
-			if(lastXchecked<size+1) //If value is changed so lastXchecked and lastYchecked both will change. This is to prevent out of bounds
-			{
-				if((buttons[lastYchecked][lastXchecked].getText()).equals(""))
-				{
-					lastXchecked=size+1;
-					lastYchecked=size+1;
-				}
-			}
-			
+			//The reason why the program entered this when there was a single zero the first time was since I made lastXcheked=10, instead of size+1			
 			if(lastXchecked<size+1 && lastYchecked<size+1)
 			{				
 				xZero=lastXchecked;
